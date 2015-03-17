@@ -3,19 +3,22 @@
 
 #include <boost/noncopyable.hpp>
 #include <vizkit3d/Vizkit3DPlugin.hpp>
-#include <osg/Geode>
-#include </base/samples/RigidBodyState.hpp>
+#include <vizkit3d/RobotModel.h>
+#include <base/samples/RigidBodyState.hpp>
+#include <osg/Group>
+#include <map>
 
 namespace vizkit3d
 {
-    class GazeboModelVisualization
+    class GazeboVisualization
         : public vizkit3d::Vizkit3DPlugin<base::samples::RigidBodyState>
         , boost::noncopyable
     {
     Q_OBJECT
+    Q_PROPERTY(QString modelFile READ modelFile WRITE setModelFile)
     public:
-        GazeboModelVisualization();
-        ~GazeboModelVisualization();
+        GazeboVisualization();
+        ~GazeboVisualization();
 
     Q_INVOKABLE void updateData(base::samples::RigidBodyState const &sample)
     {vizkit3d::Vizkit3DPlugin<base::samples::RigidBodyState>::updateData(sample);}
@@ -26,8 +29,16 @@ namespace vizkit3d
         virtual void updateDataIntern(base::samples::RigidBodyState const& plan);
         
     private:
-        struct Data;
-        Data* p;
+
+        void setModelFile(QString modelFile);
+        QString modelFile() const;
+
+        osg::Node* getNode(std::string name);
+
+        osg::ref_ptr<osg::Group> root;
+
+        std::map<std::string, osg::Node*> nameToNode;
+
     };
 }
 #endif

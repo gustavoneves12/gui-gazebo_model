@@ -1,2 +1,2 @@
-Vizkit::UiLoader.register_3d_plugin('GazeboModelVisualization', 'gazebo_model', 'GazeboModelVisualization')
-Vizkit::UiLoader.register_3d_plugin_for('GazeboModelVisualization', "/base/samples/RigidBodyState", :updateData )
+Vizkit::UiLoader.register_3d_plugin('GazeboVisualization', 'gazebo_model', 'GazeboVisualization')
+Vizkit::UiLoader.register_3d_plugin_for('GazeboVisualization', "base/samples/RigidBodyState", :updateData )
